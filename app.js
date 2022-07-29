@@ -1,7 +1,8 @@
 const express = require('express')
 const app = express()
 
-app.use(express.json)
+
+app.use(express.json())
 
 let notes = [
     {
@@ -46,7 +47,7 @@ app.delete('/api/notes/:id', (req,res) => {
 })
 
 
-app.post('/api/notes/:id', (req,res) => {
+app.post('/api/notes', (req,res) => {
     const note = req.body
     
     if(!note || !note.nombre){
@@ -56,17 +57,18 @@ app.post('/api/notes/:id', (req,res) => {
     }
 
     const ids = notes.map(note => note.id)
-    const maxId = math.max(ids)
-
+    console.log(ids)
+    const maxId = Math.max(...ids)
+    console.log(maxId)
+    
     const newNote = {
         id: maxId + 1,
         nombre: note.nombre,
         important: typeof note.important != 'undefined' ? note.important :false
     }
 
-    notes = [...notes, newNote]
-
-    res.json(note)
+    notes = notes.concat(newNote)
+    res.status(201).json(note)
 })
 
 
