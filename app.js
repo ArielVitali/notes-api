@@ -49,6 +49,12 @@ app.delete('/api/notes/:id', (req,res) => {
 app.post('/api/notes/:id', (req,res) => {
     const note = req.body
     
+    if(!note || !note.nombre){
+        return res.status(400).json({
+            error: 'note.nombre is missing'
+        })
+    }
+
     const ids = notes.map(note => note.id)
     const maxId = math.max(ids)
 
