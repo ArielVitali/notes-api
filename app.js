@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
 
+app.use(express.json)
+
 let notes = [
     {
         "id":1,
@@ -30,12 +32,36 @@ app.get('/api/notes', (req,res) => {
 app.get('/api/notes/:id', (req,res) => {
     const id = Number(req.params.id)
     const note = notes.find(note => note.id === id)
-    console.log({note})
-    res.json(note)
+    if(note){
+        res.json(note)
+    } else {
+        res.status(404).end()
+    }
+})
+
+app.delete('/api/notes/:id', (req,res) => {
+    const id = Number(req.params.id)
+    notes = notes.filter(note => note.id != id)
+    res.status(204).end()
 })
 
 
+app.post('/api/notes/:id', (req,res) => {
+    const note = req.body
+    
+    const ids = notes.map(note => note.id)
+    const maxId = math.max(ids)
 
+    const newNote = {
+        id: maxId + 1,
+        nombre: note.nombre,
+        important: typeof note.important != 'undefined' ? note.important :false
+    }
+
+    notes = [...notes, newNote]
+
+    res.json(note)
+})
 
 
 
