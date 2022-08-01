@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
-   },
+    "dev": "nodemon app.js",
+    "lint": "eslint ."
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ArielVitali/notes-api.git"
@@ -17,8 +18,12 @@
     "url": "https://github.com/ArielVitali/notes-api/issues"
   },
   "homepage": "https://github.com/ArielVitali/notes-api#readme",
-  "dependencies": {
+  "devDependencies": {
     "express": "4.18.1",
-    "nodemon": "2.0.19"
+    "nodemon": "2.0.19",
+    "standard": "17.0.0"
+  },
+  "eslintConfig":{
+    "extends": "./node_modules/standard/eslintrc.json"
   }
 }
